@@ -7,9 +7,11 @@ import org.springframework.stereotype.Service;
 import com.cg.dryclean.entity.OrderLineItem;
 import com.cg.dryclean.entity.Orders;
 import com.cg.dryclean.entity.Services;
+import com.cg.dryclean.entity.Usernames;
 import com.cg.dryclean.repository.OrderLineItemRepo;
 import com.cg.dryclean.repository.OrderRepo;
 import com.cg.dryclean.repository.ServiceRepo;
+import com.cg.dryclean.repository.UsersRepo;
 
 @Service
 public class OrderService {
@@ -19,13 +21,19 @@ public class OrderService {
 	@Autowired
 	private ServiceRepo serviceRepo;
 	@Autowired
-	private OrderLineItemRepo orderLineItemRepo;	
+	private OrderLineItemRepo orderLineItemRepo;
+	@Autowired
+	private UsersRepo usersRepo;
 	
 	//add Order
 	public Orders addOrder(Orders order)
 	{	
 		Services ser = serviceRepo.findById(order.getService().getId()).get();
 		order.setService(ser);
+		
+		Usernames user = usersRepo.findById(order.getUsers().getId()).get();
+		order.setUsers(user);
+		
 		return orderRepo.save(order);
 	}
 		
