@@ -19,7 +19,6 @@ public class AddressController {
 	@Autowired
 	private UserService userService;
 	
-	
 	@GetMapping("/getAllAddress")
 	public ResponseEntity<List<Addresses>> findAllAddresses()
 	{
@@ -44,6 +43,5 @@ public class AddressController {
 	{
 	    return userService.updateAddress(addressid, address);
 	}	
-
 	
 }

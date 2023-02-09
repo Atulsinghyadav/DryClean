@@ -19,7 +19,7 @@ public class OrderController {
 	@Autowired
 	private OrderService orderService;
 	
-	//NOT WORKING
+	
 	//get all orders	
 	@GetMapping("/getAllOrders")
 	public ResponseEntity <List<Orders>> findAllOrders()
@@ -38,10 +38,11 @@ public class OrderController {
 
 	//to retrieve orders using user id	
 	@GetMapping("/user/orders/{userId}")
-	  public ResponseEntity<List<Orders>> getOrdersByUserId(@PathVariable int userId) {
+	public ResponseEntity<List<Orders>> getOrdersByUserId(@PathVariable int userId) 
+	{
 	    List<Orders> orders = orderService.getAllOrdersByUserId(userId);
 	    return new ResponseEntity<>(orders, HttpStatus.OK);
-	  }
+	}
 
 	
 	//to add orders	

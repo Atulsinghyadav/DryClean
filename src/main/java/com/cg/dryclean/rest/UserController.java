@@ -38,12 +38,5 @@ public class UserController {
 	    return userService.updateUser(id, user);
 	}
 	
-//	for testing
-//	public String addUser(@RequestBody String user)
-//	{
-//		return userService.addUser(user);
-//	}
-	
-	
 	
 }
