@@ -1,6 +1,7 @@
 package com.cg.dryclean.rest;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,8 +24,9 @@ public class OrderController {
 	@GetMapping("/getAllOrders")
 	public ResponseEntity <List<Orders>> findAllOrders()
 	{	
-		System.out.println("inside controller-getAllOrder");
+		
 		List<Orders> orderList = orderService.findAllOrders();
+//		System.out.println(orderList);
 		return ResponseEntity.ok(orderList);
 	}
 	
@@ -36,13 +38,21 @@ public class OrderController {
 		return ResponseEntity.ok(ord);
 	}
 	
+//	public ResponseEntity<List<Orders>> getOrderById(@PathVariable int orderid)
+//	{
+//		List<Orders> ord = orderService.findOrderById(orderid);
+//		return ResponseEntity.ok(ord);
+//	}
+	
+	
+	
 	//to retrieve orders using user id	
-	@GetMapping("/myorders/{userid}")
-	public ResponseEntity<Orders> getOrderByUserId(@PathVariable("userid") int userid)
-	{
-		Orders ord = orderService.getOrderByUser(userid);
-		return ResponseEntity.ok(ord);
-	}
+	@GetMapping("/user/orders/{userId}")
+	  public ResponseEntity<List<Orders>> getOrdersByUserId(@PathVariable int userId) {
+	    List<Orders> orders = orderService.getAllOrdersByUserId(userId);
+	    return new ResponseEntity<>(orders, HttpStatus.OK);
+	  }
+
 	
 	//to add orders	
 	@PostMapping("/addOrder")
@@ -53,17 +63,17 @@ public class OrderController {
 	}
 	
 	//to delete orders
-	@DeleteMapping("/orders/{orderId}") 
-	public String deleteEmployee(@PathVariable int orderId) 
-	{ 
-		Orders order = orderService.findOrderById(orderId);
-		System.out.println(orderId);
-		if(order==null) 
-		{ 
-			throw new RuntimeException("Order id not found"+orderId); 
-		} 	
-		orderService.deleteOrderById(orderId); 
-		return "Deleted Order Id :"+orderId; 
-	} 
+//	@DeleteMapping("/orders/{orderId}") 
+//	public String deleteOrders(@PathVariable int orderId) 
+//	{ 
+//		Orders order = orderService.findOrderById(orderId);
+//		System.out.println(orderId);
+//		if(order==null) 
+//		{ 
+//			throw new RuntimeException("Order id not found"+orderId); 
+//		} 	
+//		orderService.deleteOrderById(orderId); 
+//		return "Deleted Order Id :"+orderId; 
+//	} 
 	
 }

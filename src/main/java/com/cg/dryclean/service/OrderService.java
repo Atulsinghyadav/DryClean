@@ -1,5 +1,7 @@
 package com.cg.dryclean.service;
 import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.cg.dryclean.entity.OrderLineItem;
@@ -17,8 +19,7 @@ public class OrderService {
 	@Autowired
 	private ServiceRepo serviceRepo;
 	@Autowired
-	private OrderLineItemRepo orderLineItemRepo;
-	
+	private OrderLineItemRepo orderLineItemRepo;	
 	
 	//add Order
 	public Orders addOrder(Orders order)
@@ -31,30 +32,35 @@ public class OrderService {
 	{
 		orderRepo.deleteById(orderId);
 	}
-
-	//	updating Order
-	//	....................................
 	
 	//get order details for id
 	public Orders findOrderById(int orderId) 
-	{
+	{	
 		return orderRepo.findById(orderId).get();
 	}
+//	public List<Orders> findOrderById(int orderId) 
+//	{	
+//		List<Orders> newOrders = orderRepo.findAll().stream()
+//			    .filter(e -> e.getUsers().getId() == orderId)
+//			    .collect(Collectors.toList());	
+//		return newOrders;
+//	}
 	
-	//get order details for id
-	public Orders getOrderByUser(int userId) 
-	{
-		return orderRepo.findById(userId).get();
+	//get order details for user id
+	public List<Orders> getAllOrdersByUserId(int userId) {
+		List<Orders> newOrders = orderRepo.findAll().stream()
+			    .filter(e -> e.getUsers().getId() == userId)
+			    .collect(Collectors.toList());	
+		return newOrders;
 	}
+	
 	
 	//get all orders
 	public List<Orders> findAllOrders()
-	{	System.out.println("inside service-findAll");
-		return orderRepo.findAll();
-		
+	{	
+		return orderRepo.findAll();	
 	}
 		
-	
 	//adding a service
 	public Services addService(Services service)
 	{	
@@ -72,6 +78,7 @@ public class OrderService {
 	{	
 		return orderLineItemRepo.save(item);
 	}
+	
 	//	updating Items
 	public OrderLineItem updateOrderLineItem(int id, OrderLineItem orderLineItem)
 	{
