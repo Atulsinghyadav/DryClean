@@ -26,8 +26,8 @@ public class UserController {
 	{
 		return userService.getUser(id);
 	}
-	@PostMapping(value="/addUser", consumes={"application/json"})
 	
+	@PostMapping(value="/addUser", consumes={"application/json"})
   	public Usernames addUser(@RequestBody Usernames user)
   	{
   		return userService.addUser(user);

@@ -26,7 +26,7 @@ public class UserService {
 	}
 	public Usernames addUser(Usernames user)
 	{
-		 return usersRepo.save(user);
+		return usersRepo.save(user);
 	}
 	
 	public Usernames changePassword(int id, Usernames user)
