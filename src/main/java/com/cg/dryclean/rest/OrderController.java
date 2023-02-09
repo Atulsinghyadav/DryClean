@@ -20,13 +20,11 @@ public class OrderController {
 	private OrderService orderService;
 	
 	//NOT WORKING
-	//get all orders for admin	
+	//get all orders	
 	@GetMapping("/getAllOrders")
 	public ResponseEntity <List<Orders>> findAllOrders()
 	{	
-		
 		List<Orders> orderList = orderService.findAllOrders();
-//		System.out.println(orderList);
 		return ResponseEntity.ok(orderList);
 	}
 	
@@ -37,15 +35,7 @@ public class OrderController {
 		Orders ord = orderService.findOrderById(orderid);
 		return ResponseEntity.ok(ord);
 	}
-	
-//	public ResponseEntity<List<Orders>> getOrderById(@PathVariable int orderid)
-//	{
-//		List<Orders> ord = orderService.findOrderById(orderid);
-//		return ResponseEntity.ok(ord);
-//	}
-	
-	
-	
+
 	//to retrieve orders using user id	
 	@GetMapping("/user/orders/{userId}")
 	  public ResponseEntity<List<Orders>> getOrdersByUserId(@PathVariable int userId) {

@@ -25,8 +25,8 @@ public class UserService {
 		    return usersRepo.findById(userid).get();
 	}
 	public Usernames addUser(Usernames user)
-	{
-		 return usersRepo.save(user);
+	{	
+		return usersRepo.save(user);
 	}
 	
 	public Usernames changePassword(int id, Usernames user)

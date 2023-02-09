@@ -24,6 +24,8 @@ public class OrderService {
 	//add Order
 	public Orders addOrder(Orders order)
 	{	
+		Services ser = serviceRepo.findById(order.getService().getId()).get();
+		order.setService(ser);
 		return orderRepo.save(order);
 	}
 		
@@ -38,13 +40,7 @@ public class OrderService {
 	{	
 		return orderRepo.findById(orderId).get();
 	}
-//	public List<Orders> findOrderById(int orderId) 
-//	{	
-//		List<Orders> newOrders = orderRepo.findAll().stream()
-//			    .filter(e -> e.getUsers().getId() == orderId)
-//			    .collect(Collectors.toList());	
-//		return newOrders;
-//	}
+
 	
 	//get order details for user id
 	public List<Orders> getAllOrdersByUserId(int userId) {
