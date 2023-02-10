@@ -54,17 +54,17 @@ public class OrderController {
 	}
 	
 	//to delete orders
-//	@DeleteMapping("/orders/{orderId}") 
-//	public String deleteOrders(@PathVariable int orderId) 
-//	{ 
-//		Orders order = orderService.findOrderById(orderId);
-//		System.out.println(orderId);
-//		if(order==null) 
-//		{ 
-//			throw new RuntimeException("Order id not found"+orderId); 
-//		} 	
-//		orderService.deleteOrderById(orderId); 
-//		return "Deleted Order Id :"+orderId; 
-//	} 
+	@DeleteMapping("/orders/{orderId}") 
+	public String deleteOrders(@PathVariable int orderId) 
+	{ 
+		Orders order = orderService.findOrderById(orderId);
+		System.out.println(orderId);
+		if(order==null) 
+		{ 
+			throw new RuntimeException("Order id not found"+orderId); 
+		} 	
+		orderService.deleteOrderById(orderId); 
+		return "Deleted Order Id :"+orderId; 
+	} 
 	
 }

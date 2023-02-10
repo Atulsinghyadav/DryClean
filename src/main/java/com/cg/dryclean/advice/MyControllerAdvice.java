@@ -37,7 +37,7 @@ public class MyControllerAdvice extends ResponseEntityExceptionHandler {
 	protected ResponseEntity<Object> handleHttpRequestMethodNotSupported(HttpRequestMethodNotSupportedException ex,
 			org.springframework.http.HttpHeaders headers, HttpStatusCode status, WebRequest request) {
 		
-		return new  ResponseEntity<Object>("Please change the Http method type",HttpStatus.NOT_FOUND);
+		return new  ResponseEntity<Object>("400:BAD_REQUEST:Please change the Http method type",HttpStatus.BAD_REQUEST);
 	}
 
 	//User-defined exception  

@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.cg.dryclean.entity.Addresses;
 import com.cg.dryclean.service.UserService;
 
-
 @RestController
 public class AddressController {
 	
