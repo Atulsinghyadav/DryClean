@@ -61,6 +61,7 @@ public class OrderController {
 		return ResponseEntity.ok("Order Saved");
 	}
 	
+	//to change order status (Pending,Out For Delivery, Delivered etc)
 	@PutMapping("/orders/changeStatus/{orderId}")
 	public ResponseEntity<String> changeOrderStatus(@PathVariable int orderId,@RequestBody Orders order) 
 	{
@@ -69,18 +70,13 @@ public class OrderController {
 
 	}
 	
-	//to delete orders
-	@DeleteMapping("/orders/{orderId}") 
-	public String deleteOrders(@PathVariable int orderId) 
-	{ 
-		Orders order = orderService.findOrderById(orderId);
-		System.out.println(orderId);
-		if(order==null) 
-		{ 
-			throw new RuntimeException("Order id not found"+orderId); 
-		} 	
-		orderService.deleteOrderById(orderId); 
-		return "Deleted Order Id :"+orderId; 
-	} 
+	//to generate a cancellation request for order
+	@PutMapping("/orders/cancelOrder/{orderId}")
+	public ResponseEntity<String> cancelOrder(@PathVariable int orderId) 
+	{
+		orderService.cancelOrder(orderId);
+		return ResponseEntity.ok("Requested to cancel");
+
+	}
 	
 }

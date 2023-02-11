@@ -107,8 +107,17 @@ public class OrderService {
 	//to change order status (Pending,Out For Delivery, Delivered etc) 
 	public Orders changeOrderStatus(int orderId, Orders order) 
 	{
-		Orders newOrder = orderRepo.findById(order.getId()).get();
+		Orders newOrder = orderRepo.findById(orderId).get();
 		newOrder.setOrderStatus(order.getOrderStatus());
+
+		return orderRepo.save(newOrder);
+	}
+	
+	//to cancel order
+	public Orders cancelOrder(int orderId) 
+	{
+		Orders newOrder = orderRepo.findById(orderId).get();
+		newOrder.setOrderStatus("Requested to cancel");
 
 		return orderRepo.save(newOrder);
 	}
