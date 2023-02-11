@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import com.cg.dryclean.entity.Orders;
@@ -43,7 +44,14 @@ public class OrderController {
 	    List<Orders> orders = orderService.getAllOrdersByUserId(userId);
 	    return new ResponseEntity<>(orders, HttpStatus.OK);
 	}
-
+	
+	//to retrieve orders using user id	
+	@GetMapping("/admin/{orderStatus}")
+	public ResponseEntity<List<Orders>> getOrdersByOrderStatus(@PathVariable String orderStatus) 
+	{
+		List<Orders> orders = orderService.getAllOrdersByOrderStatus(orderStatus);
+		return new ResponseEntity<>(orders, HttpStatus.OK);
+	}
 	
 	//to add orders	
 	@PostMapping("/addOrder")
@@ -51,6 +59,14 @@ public class OrderController {
 	{
 		orderService.addOrder(order);
 		return ResponseEntity.ok("Order Saved");
+	}
+	
+	@PutMapping("/orders/changeStatus/{orderId}")
+	public ResponseEntity<String> changeOrderStatus(@PathVariable int orderId,@RequestBody Orders order) 
+	{
+		orderService.changeOrderStatus(orderId,order);
+		return ResponseEntity.ok("Order Status Saved");
+
 	}
 	
 	//to delete orders

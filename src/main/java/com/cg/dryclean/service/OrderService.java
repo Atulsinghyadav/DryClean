@@ -87,6 +87,32 @@ public class OrderService {
 		return newOrders;
 	}
 	
+	//get order details for user id
+	public List<Orders> getAllOrdersByOrderStatus(String orderStatus) {
+			
+//		//if there is no order with given status then throw user-defined exception		
+//		if(!usersRepo.existsById(userId)) 
+//		{
+//			throw new UserNotFoundException();
+//		}
+			
+		//get all orders then filter out based on Order Status 
+		List<Orders> newOrders = orderRepo.findAll().stream()
+				.filter(e -> e.getOrderStatus() == orderStatus)
+				.collect(Collectors.toList());	
+			
+		return newOrders;
+	}
+	
+	//to change order status (Pending,Out For Delivery, Delivered etc) 
+	public Orders changeOrderStatus(int orderId, Orders order) 
+	{
+		Orders newOrder = orderRepo.findById(order.getId()).get();
+		newOrder.setOrderStatus(order.getOrderStatus());
+
+		return orderRepo.save(newOrder);
+	}
+	
 	//get all orders
 	public List<Orders> findAllOrders()
 	{	

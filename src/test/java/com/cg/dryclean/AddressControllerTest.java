@@ -1,7 +1,6 @@
 package com.cg.dryclean;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.jupiter.api.Test;
@@ -13,7 +12,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import com.cg.dryclean.entity.Addresses;
 import com.cg.dryclean.rest.AddressController;
-
 import com.cg.dryclean.service.UserService;
 
 @ExtendWith(MockitoExtension.class)
