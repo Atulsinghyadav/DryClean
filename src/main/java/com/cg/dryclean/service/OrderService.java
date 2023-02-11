@@ -1,4 +1,5 @@
 package com.cg.dryclean.service;
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -85,13 +86,24 @@ public class OrderService {
 		}
 		Services ser = serviceRepo.findById(order.getService().getId()).get();
 		order.setService(ser);
-		
 		Usernames user = usersRepo.findById(order.getUsers().getId()).get();
 		order.setUsers(user);
-		
+		order.setAmount(calculateAmount(order,ser));
+
 		return orderRepo.save(order);
 	}
 		
+	//To calculate order amount
+	public double calculateAmount(Orders order , Services ser) 
+	{
+		BigDecimal serviceCharge = ser.getCharges() ;
+		Integer quantity = order.getOrderLineItem().getQuantity();
+		Integer intServiceCharge = Integer.valueOf(serviceCharge.intValue());
+		Integer totalcharge = intServiceCharge  + (100 * quantity);
+		double dtotal = (double)totalcharge;
+		return dtotal ;
+	}
+	
 	//To change order status (Pending,Out For Delivery, Delivered etc) 
 	public Orders changeOrderStatus(int orderId, Orders order) 
 	{

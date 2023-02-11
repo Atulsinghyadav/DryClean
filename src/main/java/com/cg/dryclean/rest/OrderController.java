@@ -1,7 +1,5 @@
 package com.cg.dryclean.rest;
 import java.util.List;
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,6 +30,7 @@ public class OrderController {
 		List<Orders> orderList = orderService.findAllOrders();
 		return ResponseEntity.ok(orderList);
 	}
+	
 	
 	//To retrieve orders using Order Id	
 	@GetMapping("/orders/{orderid}")

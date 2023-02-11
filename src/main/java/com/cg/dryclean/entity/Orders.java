@@ -1,4 +1,5 @@
 package com.cg.dryclean.entity;
+import java.math.BigDecimal;
 import java.util.Date;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
