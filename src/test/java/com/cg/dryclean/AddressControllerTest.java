@@ -55,7 +55,7 @@ public class AddressControllerTest {
 	}
 	
 	@Test
-	public void testAddService() {
+	public void testAddAddress() {
 		Addresses a1 = new Addresses();
 		a1.setId(1);
 		a1.setDoorNo("2");

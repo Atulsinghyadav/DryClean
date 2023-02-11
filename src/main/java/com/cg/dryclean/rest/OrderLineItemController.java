@@ -25,8 +25,9 @@ public class OrderLineItemController {
 	
 	//To update an OrderLineItem
 	@PutMapping("/orderLineItem/{id}")
-	 public OrderLineItem updateOrderLineItem(@PathVariable int id, @RequestBody OrderLineItem orderLineItem) 
+	 public ResponseEntity <String> updateOrderLineItem(@PathVariable int id, @RequestBody OrderLineItem orderLineItem) 
 	{
-	    return orderLineItemService.updateOrderLineItem(id, orderLineItem);
+	    orderLineItemService.updateOrderLineItem(id, orderLineItem);
+	    return ResponseEntity.ok("Updated");
 	}	
 }

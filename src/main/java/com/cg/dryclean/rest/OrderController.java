@@ -59,7 +59,7 @@ public class OrderController {
 	
 	//To add a new Order	
 	@PostMapping("/addOrder")
-	public ResponseEntity<String> addAddress(@RequestBody Orders order)
+	public ResponseEntity<String> addOrder(@RequestBody Orders order)
 	{
 		orderService.addOrder(order);
 		return ResponseEntity.ok("Order Saved");
@@ -71,7 +71,6 @@ public class OrderController {
 	{
 		orderService.changeOrderStatus(orderId,order);
 		return ResponseEntity.ok("Order Status Saved");
-
 	}
 	
 	//To generate a cancellation request for order
@@ -80,7 +79,6 @@ public class OrderController {
 	{
 		orderService.cancelOrder(orderId);
 		return ResponseEntity.ok("Requested to cancel");
-
 	}
 	
 }
