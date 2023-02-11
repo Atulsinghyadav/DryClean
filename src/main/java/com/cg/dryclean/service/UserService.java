@@ -18,13 +18,13 @@ public class UserService {
 	@Autowired
 	private AddressRepo addressRepo;
 	
-	//to display all users present in database
+	//To RETRIEVE details of all users present in database
 	public List<Usernames> getAllUsers() 
 	{
 	    return usersRepo.findAll();
 	}
 	
-	//to display user with a specific id
+	//To RETRIEVE details of User with a specific ID
 	public Usernames getUser(int userid)
 	{
 		//if there is no user with given id then throw user-defined exception		
@@ -35,7 +35,7 @@ public class UserService {
 		return usersRepo.findById(userid).get();
 	}
 	
-	//to add a new user into database
+	//To ADD a new user into the database
 	public Usernames addUser(Usernames user)
 	{	
 		//if user name is empty then throw user-defined exception
@@ -46,15 +46,7 @@ public class UserService {
 		return usersRepo.save(user);
 	}
 	
-	//to change password of existing user
-	public Usernames changePassword(int id, Usernames user)
-	{
-		Usernames existingUser = usersRepo.findById(id).get();
-		existingUser.setPassword(user.getPassword());
-		return usersRepo.save(existingUser);
-	}
-	
-	//to update existing user details	
+	//To UPDATE details of an existing User 
 	public Usernames updateUser(int id, Usernames user)
 	{
 		//if there is no user with given id then throw user-defined exception		

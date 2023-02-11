@@ -1,14 +1,18 @@
 package com.cg.dryclean.rest;
 import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import com.cg.dryclean.entity.Orders;
 import com.cg.dryclean.service.OrderService;
@@ -21,7 +25,7 @@ public class OrderController {
 	private OrderService orderService;
 	
 	
-	//get all orders	
+	//To get a list of all Orders	
 	@GetMapping("/getAllOrders")
 	public ResponseEntity <List<Orders>> findAllOrders()
 	{	
@@ -29,7 +33,7 @@ public class OrderController {
 		return ResponseEntity.ok(orderList);
 	}
 	
-	//to retrieve orders using order id	
+	//To retrieve orders using Order Id	
 	@GetMapping("/orders/{orderid}")
 	public ResponseEntity<Orders> getOrderById(@PathVariable int orderid)
 	{
@@ -37,7 +41,7 @@ public class OrderController {
 		return ResponseEntity.ok(ord);
 	}
 
-	//to retrieve orders using user id	
+	//To retrieve orders using User Id	
 	@GetMapping("/user/orders/{userId}")
 	public ResponseEntity<List<Orders>> getOrdersByUserId(@PathVariable int userId) 
 	{
@@ -45,15 +49,16 @@ public class OrderController {
 	    return new ResponseEntity<>(orders, HttpStatus.OK);
 	}
 	
-	//to retrieve orders using user id	
-	@GetMapping("/admin/{orderStatus}")
-	public ResponseEntity<List<Orders>> getOrdersByOrderStatus(@PathVariable String orderStatus) 
+	//To retrieve orders using Order Status	
+	
+	@RequestMapping(value="/getOrderByStatus",method=RequestMethod.GET)
+	public ResponseEntity<List<Orders>> getOrdersByOrderStatus(@RequestParam("status") String orderStatus) 
 	{
 		List<Orders> orders = orderService.getAllOrdersByOrderStatus(orderStatus);
 		return new ResponseEntity<>(orders, HttpStatus.OK);
 	}
 	
-	//to add orders	
+	//To add a new Order	
 	@PostMapping("/addOrder")
 	public ResponseEntity<String> addAddress(@RequestBody Orders order)
 	{
@@ -61,7 +66,7 @@ public class OrderController {
 		return ResponseEntity.ok("Order Saved");
 	}
 	
-	//to change order status (Pending,Out For Delivery, Delivered etc)
+	//To change order status (Pending,Out For Delivery, Delivered etc)
 	@PutMapping("/orders/changeStatus/{orderId}")
 	public ResponseEntity<String> changeOrderStatus(@PathVariable int orderId,@RequestBody Orders order) 
 	{
@@ -70,7 +75,7 @@ public class OrderController {
 
 	}
 	
-	//to generate a cancellation request for order
+	//To generate a cancellation request for order
 	@PutMapping("/orders/cancelOrder/{orderId}")
 	public ResponseEntity<String> cancelOrder(@PathVariable int orderId) 
 	{

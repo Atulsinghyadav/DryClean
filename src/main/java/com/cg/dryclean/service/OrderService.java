@@ -28,7 +28,52 @@ public class OrderService {
 	@Autowired
 	private UsersRepo usersRepo;
 	
-	//add Order
+	//*****ORDER CONTROLLER METHODS*****	
+	//To get a list of all Orders
+	public List<Orders> findAllOrders()
+	{	
+		return orderRepo.findAll();	
+	}
+	
+	//To retrieve orders using Order Id	
+	public Orders findOrderById(int orderId) 
+	{	
+		//if there is no order with given id then throw user-defined exception		
+		if(!orderRepo.existsById(orderId)) 
+		{
+			throw new OrderNotFoundException();
+		}
+		return orderRepo.findById(orderId).get();
+	}
+	
+	//To retrieve orders using User Id	
+	public List<Orders> getAllOrdersByUserId(int userId) {
+			
+		//if there is no user with given id then throw user-defined exception		
+		if(!usersRepo.existsById(userId)) 
+		{
+			throw new UserNotFoundException();
+		}
+		//get all orders then filter out based on usedId 
+		List<Orders> newOrders = orderRepo.findAll().stream()
+				.filter(e -> e.getUsers().getId() == userId)
+				.collect(Collectors.toList());	
+			
+		return newOrders;
+	}
+	
+	//To retrieve orders using Order Status
+	public List<Orders> getAllOrdersByOrderStatus(String orderStatus) {
+				
+		//get all orders then filter out based on Order Status 
+		List<Orders> newOrders = orderRepo.findAll().stream()
+				.filter(e -> e.getOrderStatus() .toLowerCase().equals(orderStatus.toLowerCase()))
+				.collect(Collectors.toList());	
+			
+		return newOrders;
+	}
+	
+	//To add a new Order
 	public Orders addOrder(Orders order)
 	{	
 		//if user name is empty then throw user-defined exception
@@ -47,64 +92,7 @@ public class OrderService {
 		return orderRepo.save(order);
 	}
 		
-	//delete order by id
-	public void deleteOrderById(int orderId)
-	{
-		//if there is no order with given id then throw user-defined exception		
-		if(!orderRepo.existsById(orderId)) 
-		{
-			throw new OrderNotFoundException();
-		}
-		orderRepo.deleteById(orderId);
-	}
-	
-	//get order details for id
-	public Orders findOrderById(int orderId) 
-	{	
-		//if there is no order with given id then throw user-defined exception		
-		if(!orderRepo.existsById(orderId)) 
-		{
-			throw new OrderNotFoundException();
-		}
-		return orderRepo.findById(orderId).get();
-	}
-
-	
-	//get order details for user id
-	public List<Orders> getAllOrdersByUserId(int userId) {
-		
-		//if there is no user with given id then throw user-defined exception		
-		if(!usersRepo.existsById(userId)) 
-		{
-			throw new UserNotFoundException();
-		}
-		
-		//get all orders then filter out based on usedId 
-		List<Orders> newOrders = orderRepo.findAll().stream()
-			    .filter(e -> e.getUsers().getId() == userId)
-			    .collect(Collectors.toList());	
-		
-		return newOrders;
-	}
-	
-	//get order details for user id
-	public List<Orders> getAllOrdersByOrderStatus(String orderStatus) {
-			
-//		//if there is no order with given status then throw user-defined exception		
-//		if(!usersRepo.existsById(userId)) 
-//		{
-//			throw new UserNotFoundException();
-//		}
-			
-		//get all orders then filter out based on Order Status 
-		List<Orders> newOrders = orderRepo.findAll().stream()
-				.filter(e -> e.getOrderStatus() == orderStatus)
-				.collect(Collectors.toList());	
-			
-		return newOrders;
-	}
-	
-	//to change order status (Pending,Out For Delivery, Delivered etc) 
+	//To change order status (Pending,Out For Delivery, Delivered etc) 
 	public Orders changeOrderStatus(int orderId, Orders order) 
 	{
 		Orders newOrder = orderRepo.findById(orderId).get();
@@ -113,7 +101,7 @@ public class OrderService {
 		return orderRepo.save(newOrder);
 	}
 	
-	//to cancel order
+	//To generate a cancellation request for order
 	public Orders cancelOrder(int orderId) 
 	{
 		Orders newOrder = orderRepo.findById(orderId).get();
@@ -122,13 +110,15 @@ public class OrderService {
 		return orderRepo.save(newOrder);
 	}
 	
-	//get all orders
-	public List<Orders> findAllOrders()
-	{	
-		return orderRepo.findAll();	
+	
+	//*****SERVICE CONTROLLER METHODS*****
+	//To get a list of all available services
+	public List<Services> findAllServices()
+	{
+		return serviceRepo.findAll();
 	}
 		
-	//adding a service
+	//To add a new Service to the database
 	public Services addService(Services service)
 	{	
 		if(service.getType().isEmpty() ||
@@ -139,14 +129,10 @@ public class OrderService {
 		}
 		return serviceRepo.save(service);
 	}
-	//get all services
-	public List<Services> findAllServices()
-	{
-		return serviceRepo.findAll();
-	}
 	
 	
-	//adding an item
+	//*****ORDER-LINE-ITEM CONTROLLER METHODS*****
+	//To add an OrderLineItem
 	public OrderLineItem addItem(OrderLineItem item) 
 	{	
 		//if orderLineItem details are empty then throw user-defined exception
@@ -159,7 +145,7 @@ public class OrderService {
 		return orderLineItemRepo.save(item);
 	}
 	
-	//	updating Items
+	//To update an OrderLineItem
 	public OrderLineItem updateOrderLineItem(int id, OrderLineItem orderLineItem)
 	{
 		//if there is no OrderLineitem with given id then throw user-defined exception		

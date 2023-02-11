@@ -15,6 +15,7 @@ public class OrderLineItemController {
 	@Autowired
 	private OrderService orderLineItemService;
 	
+	//To add an OrderLineItem
 	@PostMapping("/addOrderLineItem")
 	public ResponseEntity <String> addOrderLineItem(@RequestBody OrderLineItem item)
 	{
@@ -22,8 +23,7 @@ public class OrderLineItemController {
 		return ResponseEntity.ok("Added");
 	}
 	
-	//	updating Items
-	//	....................................
+	//To update an OrderLineItem
 	@PutMapping("/orderLineItem/{id}")
 	 public OrderLineItem updateOrderLineItem(@PathVariable int id, @RequestBody OrderLineItem orderLineItem) 
 	{

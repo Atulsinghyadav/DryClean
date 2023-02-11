@@ -15,6 +15,7 @@ public class ServiceController {
 	@Autowired
 	private OrderService serviceService;
 	
+	//To get a list of all available services
 	@GetMapping("/getAllServices")
 	public ResponseEntity <List<Services>> findAllServices()
 	{
@@ -22,6 +23,7 @@ public class ServiceController {
 		return ResponseEntity.ok(serv);	
 	}
 	
+	//To add a new Service to the database
 	@PostMapping("/addNewService")
 	public ResponseEntity<String> addNewService(@RequestBody Services service)
 	{	
