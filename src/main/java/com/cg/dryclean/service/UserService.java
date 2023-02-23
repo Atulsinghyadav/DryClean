@@ -82,15 +82,15 @@ public class UserService {
 	}
 	
 	//to display address with a specific id
-	public Addresses findAddressById(int id)
-	{
-		//if there is no address with given id then throw user-defined exception
-		if(!addressRepo.existsById(id)) 
-		{
-			throw new AddressNotFoundException();
-		}
-		return addressRepo.findById(id).get();
-	}
+//	public Addresses findAddressById(int id)
+//	{
+//		//if there is no address with given id then throw user-defined exception
+//		if(!addressRepo.existsById(id)) 
+//		{
+//			throw new AddressNotFoundException();
+//		}
+//		return addressRepo.findById(id).get();
+//	}
 	
 	//to update existing address details	
 	public Addresses updateAddress(int id, Addresses address) 

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 import com.cg.dryclean.exception.AddressNotFoundException;
+import com.cg.dryclean.exception.AuthenticationFailureException;
 import com.cg.dryclean.exception.EmptyInputException;
 import com.cg.dryclean.exception.OrderLineItemNotFoundException;
 import com.cg.dryclean.exception.OrderNotFoundException;
@@ -74,5 +75,12 @@ public class MyControllerAdvice extends ResponseEntityExceptionHandler {
 	{
 		return new  ResponseEntity<String>("Input field is empty, Please look into it",HttpStatus.BAD_REQUEST);
 	}
+	
+	//User-defined exception 
+		@ExceptionHandler(AuthenticationFailureException.class)
+		public ResponseEntity<String> handleAuthenticationFailureException(AuthenticationFailureException elementException)
+		{
+			return new  ResponseEntity<String>("Wrong Password. Try again.",HttpStatus.BAD_REQUEST);
+		}
 	
 }

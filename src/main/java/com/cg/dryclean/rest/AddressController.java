@@ -24,12 +24,13 @@ public class AddressController {
 		List<Addresses> addrs=userService.findAllAddresses();
 		return ResponseEntity.ok(addrs);
 	}
-	@GetMapping("address/{addressid}")
-	public ResponseEntity<Addresses> findAddressById(@PathVariable("addressid") int addressid)
-	{
-		Addresses addr=userService.findAddressById(addressid);
-		return ResponseEntity.ok(addr);
-	}
+	
+//	@GetMapping("address/{addressid}")
+//	public ResponseEntity<Addresses> findAddressById(@PathVariable("addressid") int addressid)
+//	{
+//		Addresses addr=userService.findAddressById(addressid);
+//		return ResponseEntity.ok(addr);
+//	}
 	
 	@RequestMapping(value="/addAddress",method = RequestMethod.POST, consumes="application/json")
 	public ResponseEntity<String> addAddress(@RequestBody Addresses address)
@@ -37,6 +38,8 @@ public class AddressController {
 		userService.addAddress(address);
 		return ResponseEntity.ok("Address Saved");
 	}
+	
+	
 	@PutMapping("/address/{addressid}")
 	 public Addresses updateAddress(@PathVariable int addressid, @RequestBody Addresses address) 
 	{
