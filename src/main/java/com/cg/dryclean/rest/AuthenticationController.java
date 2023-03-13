@@ -16,7 +16,7 @@ public class AuthenticationController {
 	@Autowired
 	private AuthServiceInterface authServiceInterface;
 	
-	@PostMapping("/login")
+	@PostMapping("/auth/login")
 	public ResponseEntity<Usernames> doLogin(@RequestBody LoginRequest loginRequest){
 		Usernames usernames = authServiceInterface.login(loginRequest.getEmail(),  loginRequest.getPassword());
 		ResponseEntity<Usernames> responseEntity = new ResponseEntity<>(usernames,HttpStatus.OK);

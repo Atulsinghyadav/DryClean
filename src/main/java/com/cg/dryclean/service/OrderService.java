@@ -141,6 +141,13 @@ public class OrderService {
 		}
 		return serviceRepo.save(service);
 	}
+	//To delete a Service to the database
+	public void deleteServiceById(int id)
+    {
+      //if there is no order with given id then throw user-defined exception    
+      
+      serviceRepo.deleteById(id);
+    }
 	
 	
 	//*****ORDER-LINE-ITEM CONTROLLER METHODS*****

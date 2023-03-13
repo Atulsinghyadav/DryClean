@@ -3,6 +3,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,13 +16,12 @@ import org.springframework.web.bind.annotation.RestController;
 import com.cg.dryclean.entity.Orders;
 import com.cg.dryclean.service.OrderService;
 
-
+@CrossOrigin(origins= "http://localhost:3000")
 @RestController
 public class OrderController {
 	
 	@Autowired
 	private OrderService orderService;
-	
 	
 	//To get a list of all Orders	
 	@GetMapping("/getAllOrders")
@@ -30,7 +30,6 @@ public class OrderController {
 		List<Orders> orderList = orderService.findAllOrders();
 		return ResponseEntity.ok(orderList);
 	}
-	
 	
 	//To retrieve orders using Order Id	
 	@GetMapping("/orders/{orderid}")
@@ -50,12 +49,13 @@ public class OrderController {
 	
 	//To retrieve orders using Order Status	
 	
-	@RequestMapping(value="/getOrderByStatus",method=RequestMethod.GET)
-	public ResponseEntity<List<Orders>> getOrdersByOrderStatus(@RequestParam("status") String orderStatus) 
+	@GetMapping("/orders/status/{orderStatus}")
+	public ResponseEntity<List<Orders>> getOrdersByOrderStatus(@PathVariable String orderStatus) 
 	{
 		List<Orders> orders = orderService.getAllOrdersByOrderStatus(orderStatus);
 		return new ResponseEntity<>(orders, HttpStatus.OK);
 	}
+	
 	
 	//To add a new Order	
 	@PostMapping("/addOrder")

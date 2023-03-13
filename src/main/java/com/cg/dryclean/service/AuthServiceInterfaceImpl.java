@@ -20,6 +20,7 @@ public class AuthServiceInterfaceImpl  implements AuthServiceInterface{
 			throw new  UserNotFoundException();
 		}
 		Usernames usernames = optionalUsernames.get();
+		
 		if(!password.equals(usernames.getPassword())) {
 			throw new AuthenticationFailureException();
 		}

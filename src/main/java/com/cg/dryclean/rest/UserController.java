@@ -35,7 +35,7 @@ public class UserController {
 	}
 	
 	//To ADD a new user into the database
-	@PostMapping(value="/addUser", consumes={"application/json"})
+	@PostMapping("/addUser")
   	public ResponseEntity<Usernames> addUser(@RequestBody Usernames user)
   	{
   		return ResponseEntity.ok(userService.addUser(user));

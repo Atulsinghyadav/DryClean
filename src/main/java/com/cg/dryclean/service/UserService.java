@@ -59,8 +59,8 @@ public class UserService {
 		existingUser.setEmail(user.getEmail());
 		existingUser.setPassword(user.getPassword());
 		existingUser.setContactNo(user.getContactNo());
-		existingUser.setRole(user.getRole());
-		existingUser.setAddress(user.getAddress());
+//		existingUser.setRole(user.getRole());
+//		existingUser.setAddress(user.getAddress());
 		return usersRepo.save(existingUser);
 	}
 	
@@ -91,6 +91,17 @@ public class UserService {
 //		}
 //		return addressRepo.findById(id).get();
 //	}
+	
+	//to display address with a specific id
+	public Addresses findAddressById(int id)
+	  {
+	    //if there is no address with given id then throw user-defined exception
+	    if(!addressRepo.existsById(id)) 
+	    {
+	      throw new AddressNotFoundException();
+	    }
+	    return addressRepo.findById(id).get();
+	  }
 	
 	//to update existing address details	
 	public Addresses updateAddress(int id, Addresses address) 
